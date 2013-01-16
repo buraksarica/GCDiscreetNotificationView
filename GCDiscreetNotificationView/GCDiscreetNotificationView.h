@@ -25,6 +25,7 @@ typedef enum {
 @property (nonatomic, assign) GCDiscreetNotificationViewPresentationMode presentationMode;
 @property (nonatomic, copy) NSString* textLabel;
 @property (nonatomic, assign) BOOL showActivity;
+@property (nonatomic, assign) BOOL listenTap;
 
 @property (nonatomic, readonly, getter = isShowing) BOOL showing;
 
