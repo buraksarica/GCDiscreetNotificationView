@@ -41,6 +41,7 @@ NSString* const GCDiscreetNotificationViewActivityKey = @"activity";
 
 @synthesize activityIndicator, presentationMode, label;
 @synthesize animating, animationDict;
+@synthesize listenTap;
 
 #pragma mark -
 #pragma mark Init and dealloc
@@ -68,9 +69,39 @@ NSString* const GCDiscreetNotificationViewActivityKey = @"activity";
         self.opaque = NO;
         self.backgroundColor = [UIColor clearColor];
         
+         // TAP Stuff begin..
+        UITapGestureRecognizer *touchOnView = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)] autorelease];
+        
+        // Set required taps and number of touches
+        [touchOnView setNumberOfTapsRequired:1];
+        [touchOnView setNumberOfTouchesRequired:1];
+        listenTap = FALSE;
+        // Add the gesture to the view
+        [[self view] addGestureRecognizer:touchOnView];
+        
+        //TAP Stuff end..
+        
         self.animating = NO;
     }
     return self;
+}
+
+// tapAction throws a notification. 
+// in your code, listen to that notification defined as GCDiscreetNotificationViewTapNotificationName 
+-(void)tapAction:(UITapGestureRecognizer*)sender
+{
+    if (self.listenTap==TRUE)
+    {
+        NSLog(@"%f,%f",[sender locationInView:self.view].y,self.frame.size.height);
+        if ([sender locationInView:self.view].y<= self.frame.size.height)
+        {
+            [self hideAnimated];
+            [[NSNotificationCenter defaultCenter] postNotificationName:GCDiscreetNotificationViewTapNotificationName
+                                                                object:self
+                                                              userInfo:nil];
+            self.listenTap = FALSE;  
+        }
+    }
 }
 
 - (void)dealloc {
