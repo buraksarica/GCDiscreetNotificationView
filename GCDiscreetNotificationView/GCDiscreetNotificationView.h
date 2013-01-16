@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define GCDiscreetNotificationViewTapNotificationName @"GCDiscreetNotificationViewTapNotification"
+
 //The presentation mode of the notification, it sticks to the top or buttom of the content view
 typedef enum {
     GCDiscreetNotificationViewPresentationModeTop,
