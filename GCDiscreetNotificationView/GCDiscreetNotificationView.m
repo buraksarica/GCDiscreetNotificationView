@@ -88,6 +88,13 @@ NSString* const GCDiscreetNotificationViewActivityKey = @"activity";
 
 // tapAction throws a notification. 
 // in your code, listen to that notification defined as GCDiscreetNotificationViewTapNotificationName 
+/* example : 
+
+[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationTapped:) 
+                                                 name:GCDiscreetNotificationViewTapNotificationName
+                                               object:nil];
+*/
 -(void)tapAction:(UITapGestureRecognizer*)sender
 {
     if (self.listenTap==TRUE)
